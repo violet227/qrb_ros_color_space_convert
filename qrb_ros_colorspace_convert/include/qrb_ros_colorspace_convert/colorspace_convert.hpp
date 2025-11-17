@@ -1,16 +1,18 @@
-// Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ // Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
 // SPDX-License-Identifier: BSD-3-Clause-Clear
 
 #ifndef QRB_ROS_COLORSPACE_CONVERT__COLORSPACE_CONVERT_HPP_
 #define QRB_ROS_COLORSPACE_CONVERT__COLORSPACE_CONVERT_HPP_
 
 #include <chrono>
+#include <memory>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <sensor_msgs/msg/image.hpp>
 
-#include "qrb_colorspace_convert_lib/colorspace_convert.hpp"
 #include "qrb_ros_transport_image_type/image.hpp"
+#include "qrb_ros_transport_image_type/image_utils.hpp"
+#include "qrb_colorspace_convert_lib/colorspace_convert.hpp"
 
 namespace qrb_ros::colorspace_convert
 {
@@ -20,7 +22,7 @@ public:
   explicit ColorspaceConvertNode(const rclcpp::NodeOptions & options);
 
 private:
-  qrb::colorspace_convert_lib::OpenGLESAccelerator accelerator_;
+  qrb::colorspace_convert_lib::ConvertAccelerator accelerator_;
   std::shared_ptr<rclcpp::Subscription<qrb_ros::transport::type::Image>> handle_sub_;
   std::shared_ptr<rclcpp::Publisher<qrb_ros::transport::type::Image>> handle_pub_;
   std::string conversion_type_;
